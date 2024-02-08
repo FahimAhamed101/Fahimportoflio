@@ -1,8 +1,8 @@
-import LaptopSVG from "@components/svg/laptop-svg";
+import LaptopSVG from "@components/svg/header-img.svg";
 import { buttonVariants } from "@components/ui/button";
 import { Code, MailPlus } from "lucide-react";
 import Link from "next/link";
-
+import Image from "next/image"; 
 
 export default async function Hero() {
   
@@ -11,8 +11,9 @@ export default async function Hero() {
     <section>
       <div className="container flex flex-col items-center justify-center gap-4 space-y-4 text-center">
         {/* hero graphic  */}
-        <div className="w-full max-w-sm py-4 [&>*]:h-full [&>*]:w-full [&>*]:object-contain">
-          <LaptopSVG />
+        <div className="">
+        <Image src={ LaptopSVG}    height="250" alt="waving_hand" 
+                    width="250"/>
         </div>
 
         <div className="space-y-2">
