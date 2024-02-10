@@ -11,4 +11,23 @@ datasource db {
   relationMode = "prisma"
 }
 
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  email String @unique
+  password String 
+  Product Product[]
+
+}
+model Product{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String 
+  description String 
+  category String
+  price Int
+  images String 
+  userId String
+  User User @relation(fields: [userId], references: [id])
+  
+}
 
