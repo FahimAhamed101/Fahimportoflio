@@ -70,9 +70,7 @@ const navLinks: NavLinks = [
                 <NavLink href={item.href}>{item.label}</NavLink>
               </li>
             ))}
- {session?.user && (
-                        <li><a href="myproducts" className='py-3 inline-block w-full'>My Products</a></li>
-                        )}
+
                          {session?.user ? (
                     <ul className='py-5 px-1 text-neutral-600 flex'>
                     <li className='whitespace-nowrap hover:text-red-600 px-5 py-2 cursor-pointe'>{session.user.name}</li>
