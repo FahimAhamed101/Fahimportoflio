@@ -6,13 +6,14 @@ import { getServerSession } from "next-auth";
 import {options} from "@/app/api/auth/[...nextauth]/options"
 
 
+
 type Props = {}
 
 export default async function Page({params}:{params:{slug:string}}){
     const productId = params.slug
     const session = await getServerSession(options);
   
-    const product = await prisma.product.findUnique({
+    const product = await prisma.product.findFirst({
         where:{
             id:productId
         }
@@ -25,6 +26,7 @@ export default async function Page({params}:{params:{slug:string}}){
                 <a href="/">SEINE</a>
             </div>
             <hr />
+         
             {product && (
                 <div className='grid grid-cols-2 mt-10 gap-14'>
                     {urlString && (

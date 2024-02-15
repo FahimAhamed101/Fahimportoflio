@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth'
 import {options} from "@/app/api/auth/[...nextauth]/options"
 import Link from 'next/link'
 import prisma from "@/app/prismadb"
-
+import DeleteProduct from '@/app/DeleteProduct';
 
 
 
@@ -40,9 +40,14 @@ const page = async (props: Props) => {
                             <img className='w-[200px] h-[200px] object-cover object-top' src={product.images.split(',')[0]} alt="" />
                         </div>
                     </Link>
-                   
+                    <Link className='absolute top-0 right-0' href={`/edit/${product.id}`}>
+                                <span className='absolute top-0 right-0 p-2 bg-green-600 rounded-full text-white cursor-pointer'>
+                                    edit
+                                </span>
+                            </Link> <DeleteProduct productId={product.id} />
                 </div>
             ))}
+              
         </div>
     </div>
   )
