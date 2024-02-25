@@ -7,5 +7,5 @@ export function getSession(){
 
 export async function getCurrentUser(){
     const session = await getSession()
-    return session?.user.id
+    return session?.user?.id
 }
