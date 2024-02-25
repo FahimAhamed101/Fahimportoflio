@@ -11,11 +11,15 @@ import {
   DropdownMenuTrigger,
 } from "@components/ui/dropdown-menu";
 import { MoonStar, Sun } from "lucide-react";
-
+import React, {useState, useEffect} from 'react'
 
 export function ThemeToggle() {
-  const { setTheme } = useTheme();
-
+  const {theme, setTheme } = useTheme();
+  
+  useEffect(() => {
+    setTheme(theme === "light" ? "Red" : "light");
+  
+  },[setTheme])
 
   return (
     <DropdownMenu>
