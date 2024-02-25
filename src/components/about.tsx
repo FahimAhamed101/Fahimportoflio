@@ -69,16 +69,16 @@ export default function About() {
       </p>
 
       <p>
-        <span className="italic">When I'm not coding</span>, I enjoy playing
+        <span className="italic">When I&apos;m not coding</span>, I enjoy playing
         video games, watching movies, and playing with my dog. I also enjoy{" "}
         <span className="font-medium">learning new things</span>. I am currently
         learning about{" "}
-        <span className="font-medium">history and philosophy</span>. I'm also
+        <span className="font-medium">history and philosophy</span>. I&apos;m also
         learning how to play the guitar.
       </p>
       <div className="space-y-8">
           <div className="space-y-2">
-            <p className="font-bold">Languages, libreries or frameworks I've used the most</p>
+            <p className="font-bold">Languages, libreries or frameworks I&apos;ve used the most</p>
             <div className="flex flex-wrap gap-4">
               {items1.map((item, idx) => (
                 <ItemBtn key={idx} item={item} />
