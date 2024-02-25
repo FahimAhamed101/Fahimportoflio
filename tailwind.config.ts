@@ -26,6 +26,7 @@ const config: Config = {
             "code::after": false,
           },
         },
+        background: "hsl(var(--tw-gradient-stops))",
       },
       colors: {
         border: "hsl(var(--border))",
