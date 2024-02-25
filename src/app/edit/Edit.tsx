@@ -16,7 +16,7 @@ interface Props {
     github:string,
     link:string
     images:string
-    userId:number
+    userId:string
 }
 
 const Edit = ({id,title,description,category, github,link,images,userId}: Props) => {
