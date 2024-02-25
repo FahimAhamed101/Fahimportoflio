@@ -10,8 +10,8 @@ import ImageUpload from '@components/ImageUpload'
 type Props = {}
 
 const Productform = (props: Props) => {
-    const {data:session} = useSession()
-    const id = session?.user.id
+    const {data:session,} = useSession()
+    const id = session?.user?.id
     const router = useRouter()
     const [formData,setFormData] = useState({
         title:'',
