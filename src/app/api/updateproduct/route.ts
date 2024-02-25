@@ -10,7 +10,7 @@ export async function PATCH (request:Request){
         description,
         category,
       
-        price,
+        link,
         images,
         userId,
         
@@ -27,7 +27,7 @@ export async function PATCH (request:Request){
                 description,
                 category,
               
-                price,
+                link,
                 images,
                 userId,
                

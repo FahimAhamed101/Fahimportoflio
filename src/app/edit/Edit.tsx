@@ -13,13 +13,13 @@ interface Props {
     title:string
     description:string
     category:string
-    
-    price:number
+    github:string,
+    link:string
     images:string
     userId:number
 }
 
-const Edit = ({id,title,description,category,price,images,userId}: Props) => {
+const Edit = ({id,title,description,category, github,link,images,userId}: Props) => {
     const Id = userId
     const router= useRouter()
     const [formData, setFormData ] = useState({
@@ -27,8 +27,8 @@ const Edit = ({id,title,description,category,price,images,userId}: Props) => {
         title:title,
         description:description,
         category:category,
-      
-        price:price,
+        github:github,
+        link:link,
         images:images,
         userId:Id,
     })
@@ -50,15 +50,7 @@ const Edit = ({id,title,description,category,price,images,userId}: Props) => {
             [name]:value
         })
     }
-    const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.name === "price" ? parseInt(e.target.value):parseInt(e.target.value)
-        const inventory = e.target.name === "inventory" ? parseInt(e.target.value):parseInt(e.target.value)
-        setFormData({
-            ...formData,
-            [e.target.name] : value,
-            [e.target.name] : inventory,
-        })
-    }
+ 
 
     const handleImageChange = () => {
         const stringimages = JSON.stringify(imageUrls)
@@ -94,7 +86,7 @@ const Edit = ({id,title,description,category,price,images,userId}: Props) => {
   return (
     <div className='px-5 max-w-[1280px] mx-auto mb-10'>
       
-        <h1 className='text-3xl font-semibold py-6'>Add your Product n SEINE</h1>
+        <h1 className='text-3xl font-semibold py-6'>Update your Product Fahim</h1>
         <div className='text-black mt-4'>
             <div className='grid md:grid-cols-2 grid-cols-1 gap-5'>
                 <div>
@@ -121,16 +113,25 @@ const Edit = ({id,title,description,category,price,images,userId}: Props) => {
               
              
                 <div>
-                    <label htmlFor="price" className='font-medium'>Price</label>
+                <label htmlFor="link" className='font-medium'>link</label>
                     <input 
-                        type="number"
+                        type="text"
                         className='w-full h-[50px] border-[1px] rounded-lg focus:border-pink-500 px-3 focus:border-2 outline-none'
-                        name='price'
-                        value={formData.price}
-                        onChange={handlePriceChange}
+                        name='link'
+                        value={formData.link}
+                        onChange={handleChange}
                         />
                 </div>
-             
+                <div>
+                <label htmlFor="github" className='font-medium'>github</label>
+                    <input 
+                        type="text"
+                        className='w-full h-[50px] border-[1px] rounded-lg focus:border-pink-500 px-3 focus:border-2 outline-none'
+                        name='github'
+                        value={formData.github}
+                        onChange={handleChange}
+                        />
+                </div>
             </div>
             <label htmlFor="" className='mt-10 inline-block font-medium'>Description about your product</label>
             <Para setDescription={setDescription} description={formData.description} />

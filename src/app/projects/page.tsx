@@ -18,7 +18,7 @@ const page = async (props: Props) => {
         return(
             <div className='relative flex items-center justify-center'>
                 <img src="empty.png" alt="" />
-                <h1 className='absolute top-[80%] text-2xl text-purple-600'>Empty Cart</h1>
+                <h1 className='absolute top-[80%] text-2xl text-purple-600'>Empty Projects</h1>
             </div>
         )
     }
@@ -30,7 +30,7 @@ const page = async (props: Props) => {
                 <div key={product.id} className='relative flex items-center justify-between w-8/12 px-6 mx-auto shadow-lg shadow-purple-100 p-5 rounded-lg mt-10'>
                     <div>
                         <h1 className='mb-3'>{product.title}</h1>
-                        <h1 className='mb-3'> Price: {product.price}</h1>
+                        <a className='mb-3' href={product.link}> Link: </a>
                         <h1 className='mb-3'> Category: {product.category}</h1>
                     
                      

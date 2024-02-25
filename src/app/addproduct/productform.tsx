@@ -15,17 +15,10 @@ const Productform = (props: Props) => {
     const router = useRouter()
     const [formData,setFormData] = useState({
         title:'',
-        description:`<div>
-        <p>
-        Enter your text here ....
-        </p>
-      </div>`,
+        description:``,
         category:'',
-        style:'', 
-        size:'',
-        inventory:0,
-        color:'#fe345e',
-        price:0,
+        github:'',
+        link:'',
         images:'',
         userId:id,
         store:''
@@ -42,15 +35,7 @@ const Productform = (props: Props) => {
             [name]:value
         })
     }
-    const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.name === "price" ? parseInt(e.target.value):parseInt(e.target.value)
-        const inventory = e.target.name === "inventory" ? parseInt(e.target.value):parseInt(e.target.value)
-        setFormData({
-            ...formData,
-            [e.target.name] : value,
-            [e.target.name] : inventory,
-        })
-    }
+  
 
     const handleImageChange = () => {
         const stringimages = JSON.stringify(imageUrls)
@@ -89,7 +74,7 @@ const Productform = (props: Props) => {
   return (
     <div className='px-5 max-w-[1280px] mx-auto mb-10'>
        
-        <h1 className='text-3xl font-semibold py-6'>Add your Product n SEINE</h1>
+        <h1 className='text-3xl font-semibold py-6'>Add your Projects in Fahim</h1>
         <div className='text-black mt-4'>
             <div className='grid md:grid-cols-2 grid-cols-1 gap-5'>
                 <div>
@@ -114,16 +99,25 @@ const Productform = (props: Props) => {
                 </div>
             
                 <div>
-                    <label htmlFor="price" className='font-medium'>Price</label>
+                <label htmlFor="link" className='font-medium'>link</label>
                     <input 
-                        type="number"
+                        type="text"
                         className='w-full h-[50px] border-[1px] rounded-lg focus:border-pink-500 px-3 focus:border-2 outline-none'
-                        name='price'
-                        value={formData.price}
-                        onChange={handlePriceChange}
+                        name='link'
+                        value={formData.link}
+                        onChange={handleChange}
                         />
                 </div>
-                
+                <div>
+                <label htmlFor="github" className='font-medium'>github</label>
+                    <input 
+                        type="text"
+                        className='w-full h-[50px] border-[1px] rounded-lg focus:border-pink-500 px-3 focus:border-2 outline-none'
+                        name='github'
+                        value={formData.github}
+                        onChange={handleChange}
+                        />
+                </div>
             </div>
             <label htmlFor="" className='mt-10 inline-block font-medium'>Description about your product</label>
             <Para setDescription={setDescription} description={formData.description} />

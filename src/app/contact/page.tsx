@@ -3,10 +3,10 @@
 
 import React from "react";
 import SectionHeading from "../../components/section-heading";
-
+import 'react-toastify/dist/ReactToastify.css';
 import { sendEmail } from "./sendEmail";
 import SubmitBtn from "./submit-btn";
-import toast from "react-hot-toast";
+import { ToastContainer, toast } from 'react-toastify';
 
 
     type Props = {}
@@ -40,7 +40,7 @@ import toast from "react-hot-toast";
             return;
           }
 
-          toast.success("Email sent successfully!");
+          toast("Email sent successfully!");
         }}
       >
         <input

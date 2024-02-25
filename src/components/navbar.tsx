@@ -24,15 +24,7 @@ export default  function Navbar() {
     // console.log(session?.user)
 
     const SignOut = () => {
-        if(session && session.user){
-            return(
-                <ul className='py-5 px-1 text-neutral-600'>
-                    <li className='hover:bg-gray-100 hover:text-neutral-900 px-5 py-2 cursor-pointer'>{session.user.name}</li>
-                    <li onClick={() => signOut()} className='whitespace-nowrap hover:text-red-600 px-5 py-2 cursor-pointer'>SignOut</li>
-                    <li className='whitespace-nowrap hover:bg-gray-100 hover:text-neutral-900 px-5 py-2 cursor-pointer'><a href="/addproduct">Add Product</a></li>
-                </ul>
-            )
-        }
+      
         return(
             <ul>
                 <li onClick={()=>signIn()} className='whitespace-nowrap hover:bg-gray-100 hover:text-neutral-900 px-5 py-2 cursor-pointer'>SignIn</li>
@@ -51,8 +43,8 @@ const navLinks: NavLinks = [
       label: "Projects",
     },
     {
-      href: "/blog",
-      label:"Blog",
+      href: "/contact",
+      label:"Contact",
     },
   ];
 
@@ -64,7 +56,7 @@ const navLinks: NavLinks = [
           <LogoSVG size={10} />
         </Link>
         <nav className="hidden md:block">
-          <ul className="flex items-center gap-4">
+          <ul className="flex items-center  py-3  gap-4">
             {navLinks.map((item, index) => (
               <li key={index}>
                 <NavLink href={item.href}>{item.label}</NavLink>
@@ -140,7 +132,7 @@ const navLinks: NavLinks = [
                       variant: "ghost",
                       size: "icon",
                     })}
-                    href={"/#contact"}
+                    href={"/contact"}
                   >
                     <MailPlus className="h-5" />
                   </Link>

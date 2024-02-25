@@ -1,8 +1,8 @@
-"use client";
+
 import { buttonVariants } from "@components/ui/button";
 import React from "react";
 import SectionHeading from "./section-heading";
-import { motion } from "framer-motion";
+
 
 const items1: string[] = [
     "Next.js",
@@ -43,13 +43,11 @@ export default function About() {
 
 
   return (
-    <motion.section
+    <section
    
       className="mb-28 container flex flex-col items-center justify-center gap-4 space-y-4 text-center  text-center leading-8 sm:mb-40 scroll-mt-28"
-      initial={{ opacity: 0, y: 100 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.175 }}
-      id="about"
+  
+   
     >
       <SectionHeading>About me</SectionHeading>
       <p className="mb-3">
@@ -99,6 +97,6 @@ export default function About() {
         </div>
 
         <hr />
-    </motion.section>
+    </section>
   );
 }

@@ -6,8 +6,8 @@ export async function POST(request: Request){
     const {
         title,
         description,
-        category,
-        price,
+        category, github,
+        link,
         images,
         userId,
     
@@ -19,8 +19,8 @@ export async function POST(request: Request){
                 title,
                 description,
                 category,
-              
-                price,
+              github,
+                link,
                 images,
                 userId,
             
@@ -29,7 +29,7 @@ export async function POST(request: Request){
         return NextResponse.json(product)
     }
     catch(error){
-        console.log('Error creating the product', error)
+        console.log('Error creating the project', error)
         return NextResponse.error()
     }
 }
@@ -47,7 +47,7 @@ export async function DELETE(req:Request){
         })
         return NextResponse.json(deletedProduct)
     }catch(error){
-        console.error("Error deleting product", error)
+        console.error("Error deleting project", error)
         return NextResponse.error()
     }
 }
