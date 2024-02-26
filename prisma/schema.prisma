@@ -17,7 +17,7 @@ model User {
   email String @unique
   password String 
   Product Product[]
-
+  role String @default("user")
 }
 model Product{
   id String @id @default(auto()) @map("_id") @db.ObjectId 

@@ -2,8 +2,8 @@
 import { buttonVariants } from "@components/ui/button";
 import React from "react";
 import SectionHeading from "./section-heading";
-
-
+import Image from "next/image"; 
+import LaptopSVG from "/public/fahimgreen.jpg";
 const items1: string[] = [
     "Next.js",
     "React",
@@ -48,7 +48,10 @@ export default function About() {
       className="mb-28 container flex flex-col items-center justify-center gap-4 space-y-4 text-center  text-center leading-8 sm:mb-40 scroll-mt-28"
   
    
-    >
+    >  <div className="">
+    <Image src={ LaptopSVG} className="rounded-full"    height="250" alt="waving_hand" 
+                width="200"/>
+    </div>
       <SectionHeading>About me</SectionHeading>
       <p className="mb-3">
         After graduating with a degree in{" "}

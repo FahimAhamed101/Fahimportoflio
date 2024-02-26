@@ -71,7 +71,7 @@ const navLinks: NavLinks = [
                 </ul>
                     ) : (
                     <Link href='/signin'>
-                        <div className='p-2 bg-gray-100 rounded-full'>signin</div>
+                        <div className='p-2  '>signin</div>
                     </Link>
                     )}
           </ul>
