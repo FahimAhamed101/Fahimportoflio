@@ -31,14 +31,14 @@ export default async function Hero() {
         <div className="flex gap-4">
           <Link
             className={buttonVariants({ variant: "default", size: "lg" })}
-            href="/#projects"
+            href="/projects"
           >
-            <Code className="h-5" /> &nbsp; Projects
+            <Code className="h-5" /> &nbsp; Resume
           </Link>
 
           <Link
             className={buttonVariants({ variant: "outline", size: "lg" })}
-            href="/#contact"
+            href="/contact"
           >
             <MailPlus className="h-5" /> &nbsp; Contact
           </Link>
