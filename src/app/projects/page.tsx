@@ -28,14 +28,18 @@ const page = async (props: Props) => {
         <div>
             {allmyproduct.map((product) => (
                 <div key={product.id} className='relative flex items-center justify-between w-8/12 px-6 mx-auto shadow-lg shadow-purple-100 p-5 rounded-lg mt-10'>
+                     <Link href={`/projects/${product.id}`}>
                     <div>
-                        <h1 className='mb-3'>{product.title}</h1>
-                        <a className='mb-3' href={product.link}> Link: </a>
+
+                        <h1 className='mb-3'>Name:-{product.title}</h1>
+                   
                         <h1 className='mb-3'> Category: {product.category}</h1>
                     
                      
                     </div>
-                    <Link href={`/projects/${product.id}`}>
+                    </Link>
+                    <Link href=
+                    {`/projects/${product.id}`}>
                         <div>
                             <img className='w-[200px] h-[200px] object-cover object-top' src={product.images.split(',')[0]} alt="" />
                         </div>
