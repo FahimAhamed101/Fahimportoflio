@@ -1,18 +1,22 @@
-import React from 'react'
+
+
+import React from "react";
 import { getServerSession } from 'next-auth'
 import {options} from "@/app/api/auth/[...nextauth]/options"
 import Link from 'next/link'
 import prisma from "@/app/prismadb"
 import DeleteProduct from '@/app/DeleteProduct';
-
-
-
+import {signIn, signOut, useSession } from 'next-auth/react'
+import ProjectCard from "./ProjectCard";
+import "./styles.css";
 
 type Props = {}
 
 const page = async (props: Props) => {
-    const session = await getServerSession(options)
+  
 
+  
+  
     const allmyproduct = await prisma.product.findMany()
     if(allmyproduct.length === 0) {
         return(
@@ -23,37 +27,37 @@ const page = async (props: Props) => {
         )
     }
   return (
-    <div className='max-w-[1280px] mx-auto'>
-     
-        <div>
-            {allmyproduct.map((product) => (
-                <div key={product.id} className='relative flex items-center justify-between w-8/12 px-6 mx-auto shadow-lg shadow-purple-100 p-5 rounded-lg mt-10'>
-                     <Link href={`/projects/${product.id}`}>
-                    <div>
-
-                        <h1 className='mb-3'>Name:-{product.title}</h1>
-                   
-                        <h1 className='mb-3'> Category: {product.category}</h1>
-                    
-                     
-                    </div>
-                    </Link>
-                    <Link href=
-                    {`/projects/${product.id}`}>
-                        <div>
-                            <img className='w-[200px] h-[200px] object-cover object-top' src={product.images.split(',')[0]} alt="" />
-                        </div>
-                    </Link>
-                    <Link className='absolute top-0 right-0' href={`/edit/${product.id}`}>
-                                <span className='absolute top-0 right-0 p-2 bg-green-600 rounded-full text-white cursor-pointer'>
-                                    edit
-                                </span>
-                            </Link> <DeleteProduct productId={product.id} />
-                </div>
-            ))}
-              
-        </div>
+    <div id="projects" className="projects  bg-[#171717] text-white py-10">
+    <h1 className="text-center text-4xl font-bold py-6">Projects</h1>
+    <p className="text-center max-w-[1000px] lg:px-6 mx-auto text-[#939191]">
+      Some of My projects are shown below.
+    </p>
+    <div className="flex justify-center items-center gap-4 mt-12 mb-2 ">
+      <button
+       
+        className={`font-bold text-[19px] border-2  bg-[#171717] rounded-[6px] p-[4px] ${
+            <div
+            id="text1"
+            className="tab-pane  text-center text-white py-5   lg:p-5"
+          >No Projects found</div> ? "bg-[linear-gradient(90deg,#b004b0,#38097a)]" : ""
+        }`}
+      >
+       <a href="/">Home</a> 
+      </button>
+    
+      
     </div>
+    <div className="grid grid-cols-3 p-10 justify-center items-center gap-5 lg:grid-cols-3 tl:grid-cols-1  ">
+      { <div
+        id="text1"
+        className="tab-pane  text-center text-white py-5   lg:p-5"
+      >No Projects found</div>
+        ? allmyproduct.map((product, i) => <ProjectCard key={i} product={product} />)
+        : null}
+    </div>
+  
+
+  </div>
   )
 }
 

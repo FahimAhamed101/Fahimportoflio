@@ -21,22 +21,21 @@ export default async function Page({params}:{params:{slug:string}}){
   
     const urlString = product?.images
     return(
-        <div className='max-w-[1280px] mx-auto px-5 py-5'>
-            <div className='font-semibold text-2xl mb-2'>
-                <a href="/"><ExternalLink />Home</a>
-                
-            </div>
-            <hr />
+        <div className='max-w-[1280px] mb-5 mr-5 mx-auto items-center grid'>
+            
          
             {product && (
-                <div className='grid grid-cols-1  mt-10 gap-10'>
+                <div className='grid grid-cols-2 items-center mx-auto  gap-10'>
+             
                     {urlString && (
                         <ImageGallery imageUrls = {urlString} />
                     )}
-          
+            <div className='flex items-end gap-5 '> 
+                        <Link href={product.github}><Github />Github</Link>  
+              <Link href="/"><ExternalLink />Live</Link>  </div>
                 </div>
             )}
-            <div className='mb-20 mt-10'>
+           
                
                 {product && (
                     <div className='grid grid-cols-1 text-center '>  
@@ -55,16 +54,14 @@ export default async function Page({params}:{params:{slug:string}}){
                  
                    <span className=' pt-5 font-medium text-xl'>{product.description}</span>
             </div>
-            <div className='flex text-center gap-5 items-center'> 
-                        <Link href={product.github}><Github />Github</Link>  
-              <Link href="/"><ExternalLink />Live</Link>  </div>
+          
                 </div>
                     
                
                     </div>
                      
                 )}
-            </div>
+           
           
         </div>
     )
