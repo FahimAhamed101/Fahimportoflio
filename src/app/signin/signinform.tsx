@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import {signIn} from "next-auth/react"
-
+import { z } from 'zod';
 type Props = {}
 
 const Signinform = (props: Props) => {
@@ -20,6 +20,7 @@ const Signinform = (props: Props) => {
                 password:user.password,
                 redirect:true,
                 callbackUrl:'/'
+                
             })
         }catch{
             console.log('Error while logging in')

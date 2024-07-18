@@ -6,11 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
-   
+    "lint": "next lint",
+    "seed": "node prisma/seeder.js"
   },
   "dependencies": {
     "@prisma/client": "^5.9.1",
+    "@radix-ui/react-toast": "^1.2.1",
     "@radix-ui/themes": "^2.0.3",
     "@react-email/components": "^0.0.15",
     "@react-email/tailwind": "^0.0.14",

@@ -27,26 +27,20 @@ const page = async (props: Props) => {
         )
     }
   return (
-    <div id="projects" className="projects  bg-[#171717] text-white py-10">
-    <h1 className="text-center text-4xl font-bold py-6">Projects</h1>
-    <p className="text-center max-w-[1000px] lg:px-6 mx-auto text-[#939191]">
-      Some of My projects are shown below.
-    </p>
-    <div className="flex justify-center items-center gap-4 mt-12 mb-2 ">
-      <button
-       
-        className={`font-bold text-[19px] border-2  bg-[#171717] rounded-[6px] p-[4px] ${
-            <div
-            id="text1"
-            className="tab-pane  text-center text-white py-5   lg:p-5"
-          >No Projects found</div> ? "bg-[linear-gradient(90deg,#b004b0,#38097a)]" : ""
-        }`}
-      >
-       <a href="/">Home</a> 
-      </button>
-    
-      
-    </div>
+    <div id="projects" className="projects  text-white ">
+  <div className="mx-auto flex max-w-xl flex-col items-center space-y-4">
+          <h1 className="text-center text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl">
+            <span className="bg-gradient-to-r from-yellow-500 to-orange-600 bg-clip-text font-extrabold text-transparent">
+              Awesome 
+            </span>{" "}
+            projects and websites
+          </h1>
+          <p className="mt-6 text-center text-xl text-zinc-600">
+            Discover the Best  projects and website built with React,
+            Next.js, Tailwind CSS, and more.
+          </p>
+         
+        </div>
     <div className="grid grid-cols-3 p-10 justify-center items-center gap-5 lg:grid-cols-3 tl:grid-cols-1  ">
       { <div
         id="text1"
