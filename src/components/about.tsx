@@ -19,12 +19,12 @@ const items1: string[] = [
   ];
   
   const items2: string[] = [
-    "C#",
-    "Java",
-    "Spring Boot",
+    "vuejs",
+    "laravel",
+    "Php",
     "PL/SQL",
     "Bootstrap",
-    "SASS",
+    "Css",
   ];
   
   function ItemBtn({ item }: { item: string }) {
