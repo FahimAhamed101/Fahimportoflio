@@ -50,7 +50,7 @@ export default function Experience() {
     </div>
           <p className="subheading mx-auto max-w-prose">as a Software Developer.</p>
           <a
-            href="/jordan-cortes-cv.pdf"
+            href="https://drive.google.com/file/d/1GLRB1EHgHg9GLgG5qBfjFi6AcwmDOO3q/view?usp=sharing"
             target="_blank"
             className={buttonVariants({ variant: "default" })}
           >

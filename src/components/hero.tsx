@@ -31,7 +31,7 @@ export default async function Hero() {
         <div className="flex gap-4">
           <Link
             className={buttonVariants({ variant: "default", size: "lg" })}
-            href="/projects"
+            href="https://drive.google.com/file/d/1GLRB1EHgHg9GLgG5qBfjFi6AcwmDOO3q/view?usp=sharing"
           >
             <Code className="h-5" /> &nbsp; Resume
           </Link>
