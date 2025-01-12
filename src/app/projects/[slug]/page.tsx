@@ -9,13 +9,13 @@ import {Github,ExternalLink , Menu } from "lucide-react";
 
 type Props = {}
 
-export default async function Page({params}:{params:Promise<{ slug:string}>}){
-    const productId = params.slug
+export default async function Page({params}:{params:Promise<{ slug:string;}>}){
+    const {slug}= await params
     const session = await getServerSession(options);
   
     const product = await prisma.product.findFirst({
         where:{
-            id:productId
+            id:slug
         }
     })
   
