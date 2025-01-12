@@ -5,12 +5,12 @@ import Link from "next/link";
 import { getServerSession } from "next-auth";
 import {options} from "@/app/api/auth/[...nextauth]/options"
 import {Github,ExternalLink , Menu } from "lucide-react";
-
+import { use } from "react";
 
 type Props = {}
 
 export default async function Page({params}:{params:Promise<{ slug:string}>}){
-    const productId = await params.slug
+    const productId = use(params.slug)
     const session = await getServerSession(options);
   
     const product = await prisma.product.findFirst({

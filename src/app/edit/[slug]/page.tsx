@@ -4,7 +4,7 @@ import Edit from '../Edit'
 
 type Props = {}
 
-const EditProduct = async ({params}:{ params:slug}) => {
+const EditProduct = async ({params}:{ params:Promise<{ slug:string}>}) => {
     const productId = await params.slug
 
    
