@@ -27,31 +27,31 @@ const page = async (props: Props) => {
         )
     }
   return (
-
-          <section id="projects" className="w-full flex flex-col gap-12 md:px-10 px-5">
+    <div id="projects" className="projects  text-white ">
   <div className="mx-auto flex max-w-xl flex-col items-center space-y-4">
           <h1 className="text-center text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl">
             <span className="bg-gradient-to-r from-yellow-500 to-orange-600 bg-clip-text font-extrabold text-transparent">
-            Projects
+              Awesome 
             </span>{" "}
-     
+            projects and websites
           </h1>
           <p className="mt-6 text-center text-xl text-zinc-600">
-            Discover the Best  projects and website built with diffrent web framworks.
+            Discover the Best  projects and website built with React,
+            Next.js, Tailwind CSS, and more.
           </p>
          
         </div>
-    
+    <div className="grid grid-cols-3 p-10 justify-center items-center gap-5 lg:grid-cols-3 tl:grid-cols-1  ">
       { <div
         id="text1"
         className="tab-pane  text-center text-white py-5   lg:p-5"
       >No Projects found</div>
         ? allmyproduct.map((product, i) => <ProjectCard key={i} product={product} />)
         : null}
-
+    </div>
   
-</section>
- 
+
+  </div>
   )
 }
 
