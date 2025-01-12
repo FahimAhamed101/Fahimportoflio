@@ -43,8 +43,13 @@ const navLinks: NavLinks = [
       label: "Projects",
     },
     {
-      href: "/contact",
+      href: "https://www.linkedin.com/in/fahim-ahmed-477836190/",
       label:"Contact",
+    },
+    {
+      href: "https://github.com/FahimAhamed101",
+      label:"Github",
+
     },
   ];
 

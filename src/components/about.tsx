@@ -3,7 +3,8 @@ import { buttonVariants } from "@components/ui/button";
 import React from "react";
 import SectionHeading from "./section-heading";
 import Image from "next/image"; 
-import LaptopSVG from "/public/fahimgreen.jpg";
+
+import LaptopSVG from "@components/svg/header-img.svg";
 const items1: string[] = [
     "Next.js",
     "React",

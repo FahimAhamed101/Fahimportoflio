@@ -1,9 +1,9 @@
-import LaptopSVG from "@components/svg/header-img.svg";
+
 import { buttonVariants } from "@components/ui/button";
 import { Code, MailPlus } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image"; 
-
+import LaptopSVG from "../../public/fahimgreen.jpg";
 export default async function Hero() {
   
 
