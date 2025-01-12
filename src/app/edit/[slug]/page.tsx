@@ -5,14 +5,14 @@ import Edit from '../Edit'
 type Props = {}
 
 const EditProduct = async ({params}:{ params:Promise<{ slug:string}>}) => {
-    const productId = await params.slug
+    const {slug} = await params
 
    
 
     try{
         const product = await prisma.product.findUnique({
             where:{
-                id:productId
+                id:slug
             }
         })
 
