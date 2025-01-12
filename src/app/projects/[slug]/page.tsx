@@ -9,7 +9,7 @@ import {Github,ExternalLink , Menu } from "lucide-react";
 
 type Props = {}
 
-export default async function Page({params}:{params:{slug:string}}){
+export default async function Page({params}:{params:{slug}}){
     const productId = params.slug
     const session = await getServerSession(options);
   
