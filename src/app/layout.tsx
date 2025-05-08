@@ -5,11 +5,19 @@ import Navbar from "@components/navbar";
 import Footer from "@components/footer";
 const inter = Inter({ subsets: ["latin"] });
 import { Providers } from "@components/providers";
+import { TechUsedSectionNew } from "@/components/animated/layout_footer";
+import { usedTechnologies } from "@/components/animated/tech";
+import { memo } from "react";
+import deepEqual from "fast-deep-equal";
+// Make sure this type is properly defined
 
 export const metadata: Metadata = {
   title: "Fahim-Portfolio",
   description: "Full Stack Software developer",
 };
+
+// Define your socials array here or import it
+
 
 export default function RootLayout({
   children,
@@ -18,25 +26,37 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-  
-        <body className={inter.className}>
-      <Providers>
+      <body className={inter.className}>
+        <Providers>
           <Navbar />
-          <main className="flex-grow pb-16 pt-8">
-          
-            {children}
-          </main>
-       
-          <Footer />
+          <PageContent innerChildren={children}  />
         </Providers>
-        </body> 
-        
-  
-      
-      
-     
-
-  
+      </body>
     </html>
   );
 }
+
+const PageContent = memo(
+  ({
+    innerChildren,
+  
+  }: {
+    innerChildren: React.ReactNode;
+    
+  }) => {
+    return (
+      <>
+        <main className="min-h-[90svh] pb-8">{innerChildren}</main>
+        <TechUsedSectionNew techUsed={usedTechnologies} />
+        <Footer  />
+      </>
+    );
+  },
+  (prev, next) => {
+    const prevChildrenMatch = deepEqual(prev.innerChildren, next.innerChildren);
+  
+    return prevChildrenMatch ;
+  }
+);
+
+PageContent.displayName = "PageContent";
