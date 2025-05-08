@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { cn } from "@/lib/utils"; // Ensure you have this utility
 
 export const TechUsedSectionNew = dynamic(
   () => import("@/components/animated/tech-used"),
@@ -15,7 +16,7 @@ export const TechUsedSectionNew = dynamic(
                 Tech used in my website
               </strong>
             </div>
-            <div className="infinite-scroll-mask scroller flex min-h-[92px] w-full items-center gap-8 md:min-h-[112px]">
+            <div className="flex min-h-[92px] w-full items-center gap-8 overflow-hidden md:min-h-[112px]">
               {Array(12)
                 .fill(0)
                 .map((_, i) => (
@@ -29,5 +30,5 @@ export const TechUsedSectionNew = dynamic(
         </section>
       </div>
     ),
-  },
+  }
 );

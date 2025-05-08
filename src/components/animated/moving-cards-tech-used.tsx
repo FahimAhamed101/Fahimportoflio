@@ -1,11 +1,9 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-
-import React, { useEffect, useState } from "react";
-
-import { type usedTechnologies } from "./tech";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"; // Make sure you have this utility
+import { usedTechnologies } from "@/components/animated/tech"; // Adjust path as needed
 
 export const InfiniteMovingCardsTechUsed = ({
   items,
@@ -22,45 +20,41 @@ export const InfiniteMovingCardsTechUsed = ({
 }) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const scrollerRef = React.useRef<HTMLUListElement>(null);
-
   const [start, setStart] = useState(false);
 
   const getDirection = () => {
     if (containerRef.current) {
-      if (direction === "left") {
-        containerRef.current.style.setProperty(
-          "--animation-direction",
-          "forwards",
-        );
-      } else {
-        containerRef.current.style.setProperty(
-          "--animation-direction",
-          "reverse",
-        );
-      }
+      containerRef.current.style.setProperty(
+        "--animation-direction",
+        direction === "left" ? "forwards" : "reverse"
+      );
     }
   };
+
   const getSpeed = () => {
     if (containerRef.current) {
-      if (speed === "fast") {
-        containerRef.current.style.setProperty("--animation-duration", "20s");
-      } else if (speed === "normal") {
-        containerRef.current.style.setProperty("--animation-duration", "40s");
-      } else {
-        containerRef.current.style.setProperty("--animation-duration", "80s");
-      }
+      const durations = {
+        fast: "20s",
+        normal: "40s",
+        slow: "80s",
+      };
+      containerRef.current.style.setProperty("--animation-duration", durations[speed]);
     }
   };
 
-  const addAnimation = async () => {
+  const addAnimation = () => {
     if (containerRef.current && scrollerRef.current) {
       const scrollerContent = Array.from(scrollerRef.current.children);
+      
+      // Clear any existing duplicates
+      while (scrollerRef.current.children.length > items.length) {
+        scrollerRef.current.removeChild(scrollerRef.current.lastChild!);
+      }
 
+      // Add new duplicates
       scrollerContent.forEach((item) => {
         const duplicatedItem = item.cloneNode(true);
-        if (scrollerRef.current) {
-          scrollerRef.current.appendChild(duplicatedItem);
-        }
+        scrollerRef.current?.appendChild(duplicatedItem);
       });
 
       getDirection();
@@ -71,15 +65,23 @@ export const InfiniteMovingCardsTechUsed = ({
 
   useEffect(() => {
     addAnimation();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    
+    // Cleanup function
+    return () => {
+      if (scrollerRef.current) {
+        while (scrollerRef.current.children.length > items.length) {
+          scrollerRef.current.removeChild(scrollerRef.current.lastChild!);
+        }
+      }
+    };
+  }, [direction, speed, items.length]);
 
   return (
     <div
       ref={containerRef}
       className={cn(
         "scroller relative z-20 max-w-7xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
-        className,
+        className
       )}
     >
       <ul
@@ -87,7 +89,7 @@ export const InfiniteMovingCardsTechUsed = ({
         className={cn(
           "flex w-max min-w-full shrink-0 flex-nowrap gap-4 py-4",
           start && "animate-scroll-x",
-          pauseOnHover && "hover:[animation-play-state:paused]",
+          pauseOnHover && "hover:[animation-play-state:paused]"
         )}
       >
         {items.map((item, idx) => {
@@ -102,36 +104,34 @@ export const InfiniteMovingCardsTechUsed = ({
 
           return (
             <li
-              key={`${item.name}-row-1-${idx}`}
-              typeof="img"
+              key={`${item.name}-${idx}`}
               className={cn(
+                "relative h-[60px] md:h-[80px]",
                 {
                   "rounded-lg bg-neutral-900 dark:bg-neutral-100": isDarkLogo,
                   "inset-0 rounded-lg": isDrizzleORM,
                   "pl-2 pr-1": isVercel,
                   "rounded-lg bg-neutral-300": isShadcn,
-                  "rounded-lg bg-neutral-950 dark:bg-neutral-100":
-                    isAceternity || lightLogo,
-                },
-                "relative h-[60px] md:h-[80px]",
+                  "rounded-lg bg-neutral-950 dark:bg-neutral-100": isAceternity || lightLogo,
+                }
               )}
             >
               {isDrizzleORM && (
-                <div className="absolute -inset-0 rounded-lg bg-lime-400" />
+                <div className="absolute inset-0 rounded-lg bg-lime-400" />
               )}
               <Image
                 alt={`${item.name} Logo`}
                 className={cn(
-                  isDarkLogo && "invert dark:invert-0",
-                  isShadcn &&
-                    "bg-neutral-950 invert-0 dark:bg-neutral-100 dark:invert",
-                  isAceternity && "invert-0 dark:invert",
-                  isVercel && "aspect-square",
-                  lightLogo &&
-                    "hue-rotate-180 invert dark:hue-rotate-0 dark:invert-0",
-                  !isStorybook && !isTwLogo && "aspect-square",
-                  isDrizzleORM ? "z-30 rounded-md" : "rounded-lg",
                   "relative h-[60px] w-auto flex-shrink-0 overflow-hidden object-cover object-center md:h-[80px] md:min-h-[80px] md:w-auto",
+                  {
+                    "invert dark:invert-0": isDarkLogo,
+                    "bg-neutral-950 invert-0 dark:bg-neutral-100 dark:invert": isShadcn,
+                    "invert-0 dark:invert": isAceternity,
+                    "aspect-square": isVercel,
+                    "hue-rotate-180 invert dark:hue-rotate-0 dark:invert-0": lightLogo,
+                    "z-30 rounded-md": isDrizzleORM,
+                    "rounded-lg": !isDrizzleORM,
+                  }
                 )}
                 src={item.icon}
                 width={200}

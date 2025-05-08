@@ -9,7 +9,7 @@ export default async function Hero() {
 
   return (
     <section>
-      <div className="container flex flex-col items-center justify-center gap-4 space-y-4 text-center">
+      <div className="pt-5 container flex flex-col items-center justify-center gap-4 space-y-4 text-center">
         {/* hero graphic  */}
         <div className="">
         <Image src={ LaptopSVG}    height="250" alt="waving_hand" 
