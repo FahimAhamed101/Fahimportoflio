@@ -15,7 +15,7 @@ export const TechUsedSectionNew = dynamic(
                 Tech used in my website
               </strong>
             </div>
-            <div className=" flex min-h-[92px] w-full items-center gap-8 md:min-h-[112px]">
+            <div className="infinite-scroll-mask scroller flex min-h-[92px] w-full items-center gap-8 md:min-h-[112px]">
               {Array(12)
                 .fill(0)
                 .map((_, i) => (
