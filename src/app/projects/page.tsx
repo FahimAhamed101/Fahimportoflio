@@ -10,7 +10,7 @@ import "./styles.css";
 
 type Props = {}
 
-const Page = async (props: Props) => {
+const ProjectPage = async (props: Props) => {
   const allmyproduct = await prisma.product.findMany()
   
   if (allmyproduct.length === 0) {
@@ -90,4 +90,4 @@ const Page = async (props: Props) => {
   )
 }
 
-export default Page
+export default ProjectPage
