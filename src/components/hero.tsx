@@ -62,7 +62,7 @@ export default function Hero() {
           {/* Badge */}
           <div className="inline-flex items-center rounded-full bg-gradient-to-r from-purple-600 to-blue-600 px-4 py-2 text-sm font-medium text-white shadow-lg transform transition-all duration-500 hover:scale-105">
             <Sparkles className="mr-2 h-4 w-4" />
-            Full Stack Developer & UI/UX Designer
+            Full Stack Software Developer 
           </div>
           
           {/* Main heading with animation */}
