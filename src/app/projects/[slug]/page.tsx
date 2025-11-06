@@ -36,11 +36,10 @@ export default async function Page({params}: {params: Promise<{ slug: string }>}
     }
 
     const urlString = product?.images
-   
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-purple-100 py-8 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-6xl mx-auto">
+            <div className="max-w-7xl mx-auto">
                 {/* Navigation */}
                 <div className="mb-8">
                     <Link 
@@ -54,11 +53,14 @@ export default async function Page({params}: {params: Promise<{ slug: string }>}
 
                 {/* Main Content */}
                 <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
-                        {/* Image Gallery */}
+                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-12 p-8">
+                        {/* Image Gallery - Larger and Side by Side */}
                         {urlString && (
-                            <div className="lg:sticky lg:top-8">
-                                <ImageGallery imageUrls={urlString} />
+                            <div className="xl:sticky xl:top-8 xl:h-fit">
+                                <div className="space-y-4">
+                                    <h2 className="text-2xl font-bold text-gray-900 mb-6">Project Gallery</h2>
+                                    <ImageGallery imageUrls={urlString} />
+                                </div>
                             </div>
                         )}
                         
@@ -66,21 +68,21 @@ export default async function Page({params}: {params: Promise<{ slug: string }>}
                         <div className="space-y-8">
                             {/* Header */}
                             <div>
-                                <div className="flex items-center justify-between mb-4">
+                                <div className="flex items-center justify-between mb-6">
                                     <span className="px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
                                         {product.category}
                                     </span>
                                     <div className="flex items-center space-x-3">
-                                        <button className="p-2 text-gray-400 hover:text-red-500 transition-colors">
-                                            <Heart className="h-6 w-6" />
+                                        <button className="p-3 text-gray-400 hover:text-red-500 transition-colors bg-gray-100 rounded-lg hover:bg-red-50">
+                                            <Heart className="h-5 w-5" />
                                         </button>
-                                        <button className="p-2 text-gray-400 hover:text-purple-600 transition-colors">
-                                            <Share2 className="h-6 w-6" />
+                                        <button className="p-3 text-gray-400 hover:text-purple-600 transition-colors bg-gray-100 rounded-lg hover:bg-purple-50">
+                                            <Share2 className="h-5 w-5" />
                                         </button>
                                     </div>
                                 </div>
                                 
-                                <h1 className="text-4xl font-bold text-gray-900 mb-4">
+                                <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
                                     {product.title}
                                 </h1>
                                 
@@ -89,22 +91,37 @@ export default async function Page({params}: {params: Promise<{ slug: string }>}
                                 </p>
                             </div>
 
-                            
+                            {/* Tech Stack */}
+                            {product.category && (
+                                <div className="space-y-4">
+                                    <h3 className="text-xl font-semibold text-gray-900">Tech Stack</h3>
+                                    <div className="flex flex-wrap gap-3">
+                                        {product.category.split(',').map((tag, index) => (
+                                            <span 
+                                                key={index}
+                                                className="px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-medium border border-blue-200"
+                                            >
+                                                {tag.trim()}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
 
                             {/* Project Links */}
                             <div className="space-y-4">
-                                <h3 className="text-lg font-semibold text-gray-900">Project Links</h3>
+                                <h3 className="text-xl font-semibold text-gray-900">Project Links</h3>
                                 <div className="flex flex-col sm:flex-row gap-4">
                                     {product.github && (
                                         <Link 
                                             href={product.github}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center justify-center px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors group"
+                                            className="flex items-center justify-center px-8 py-4 bg-gray-900 text-white rounded-xl hover:bg-gray-800 transition-all transform hover:-translate-y-1 shadow-lg hover:shadow-xl group"
                                         >
-                                            <Github className="mr-3 h-5 w-5" />
-                                            GitHub Repository
-                                            <ExternalLink className="ml-2 h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                            <Github className="mr-3 h-6 w-6" />
+                                            <span className="text-lg font-medium">GitHub</span>
+                                            <ExternalLink className="ml-3 h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                                         </Link>
                                     )}
                                     
@@ -113,26 +130,29 @@ export default async function Page({params}: {params: Promise<{ slug: string }>}
                                             href={product.link}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg hover:from-purple-700 hover:to-indigo-700 transition-all transform hover:-translate-y-0.5 shadow-lg hover:shadow-purple-500/30 group"
+                                            className="flex items-center justify-center px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl hover:from-purple-700 hover:to-indigo-700 transition-all transform hover:-translate-y-1 shadow-lg hover:shadow-purple-500/30 group"
                                         >
-                                            <ExternalLink className="mr-3 h-5 w-5" />
-                                            Live Demo
-                                            <ExternalLink className="ml-2 h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                            <ExternalLink className="mr-3 h-6 w-6" />
+                                            <span className="text-lg font-medium">Live Demo</span>
+                                            <ExternalLink className="ml-3 h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                                         </Link>
                                     )}
                                 </div>
                             </div>
 
                             {/* Additional Details */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-gray-200">
-                                <div>
-                                    <h4 className="text-sm font-medium text-gray-500 mb-2">Status</h4>
-                                    <p className="text-lg font-semibold text-purple-600">Completed</p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-gray-200">
+                                <div className="space-y-2">
+                                    <h4 className="text-sm font-medium text-gray-500 uppercase tracking-wide">Status</h4>
+                                    <div className="flex items-center">
+                                        <div className="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                                        <p className="text-xl font-semibold text-gray-900">Completed</p>
+                                    </div>
                                 </div>
                                 
-                                <div>
-                                    <h4 className="text-sm font-medium text-gray-500 mb-2">Last Updated</h4>
-                                    <p className="text-lg font-semibold text-gray-900">
+                                <div className="space-y-2">
+                                    <h4 className="text-sm font-medium text-gray-500 uppercase tracking-wide">Last Updated</h4>
+                                    <p className="text-xl font-semibold text-gray-900">
                                         {new Date().toLocaleDateString('en-US', {
                                             year: 'numeric',
                                             month: 'long',
@@ -144,16 +164,16 @@ export default async function Page({params}: {params: Promise<{ slug: string }>}
 
                             {/* Admin Actions */}
                             {session && (
-                                <div className="pt-6 border-t border-gray-200">
-                                    <h4 className="text-lg font-semibold text-gray-900 mb-4">Admin Actions</h4>
-                                    <div className="flex gap-4">
+                                <div className="pt-8 border-t border-gray-200">
+                                    <h4 className="text-xl font-semibold text-gray-900 mb-6">Admin Actions</h4>
+                                    <div className="flex flex-col sm:flex-row gap-4">
                                         <Link 
                                             href={`/edit/${product.id}`}
-                                            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                                            className="flex-1 text-center px-8 py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all transform hover:-translate-y-1 shadow-lg hover:shadow-blue-500/30"
                                         >
                                             Edit Project
                                         </Link>
-                                        <button className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+                                        <button className="flex-1 text-center px-8 py-4 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-all transform hover:-translate-y-1 shadow-lg hover:shadow-red-500/30">
                                             Delete Project
                                         </button>
                                     </div>

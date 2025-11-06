@@ -80,9 +80,9 @@ export default function Hero() {
           {/* Description */}
           <p className="max-w-2xl text-xl text-white/90 md:text-2xl backdrop-blur-sm bg-black/30 rounded-2xl p-6 border border-white/10 transform transition-all duration-700 hover:scale-105">
             Crafting <span className="text-purple-300 font-semibold">exceptional digital experiences</span> with modern technologies. 
-            Specializing in <span className="text-blue-300 font-semibold">Next.js</span>, 
+            Specializing in <span className="text-blue-300 font-semibold">Reactjs,Next.js</span>, 
             <span className="text-green-300 font-semibold"> TypeScript</span>, and 
-            <span className="text-amber-300 font-semibold"> cutting-edge web solutions</span>.
+            <span className="text-amber-300 font-semibold"> Full Stack Software Development </span>.
           </p>
           
           {/* Action buttons */}
