@@ -11,8 +11,26 @@ import "./styles.css";
 type Props = {}
 
 const ProjectPage = async (props: Props) => {
-  const allmyproduct = await prisma.product.findMany()
+  // Sort by latest (most recent) products first
+  // Try different possible field names for the timestamp
+  const allmyproduct = await prisma.product.findMany({
+    orderBy: {
+      // Try these common field names for creation timestamp
+      id: 'desc', // This will work if IDs are auto-incrementing
+      // Or try:
+      // created_at: 'desc',
+      // date_created: 'desc',
+      // timestamp: 'desc',
+    }
+  })
   
+  // If the above doesn't work, you can also sort in JavaScript
+  // const allmyproduct = await prisma.product.findMany();
+  // const sortedProducts = [...allmyproduct].sort((a, b) => 
+  //   new Date(b.createdAt || b.created_at || b.date_created || b.timestamp).getTime() - 
+  //   new Date(a.createdAt || a.created_at || a.date_created || a.timestamp).getTime()
+  // );
+
   if (allmyproduct.length === 0) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-slate-900 to-purple-900 p-4">
@@ -83,8 +101,6 @@ const ProjectPage = async (props: Props) => {
             <ProjectCard key={i} product={product} />
           ))}
         </div>
-
-   
       </div>
     </div>
   )

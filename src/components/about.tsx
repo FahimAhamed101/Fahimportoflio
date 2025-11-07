@@ -6,27 +6,50 @@ import Image from "next/image";
 
 import LaptopSVG from "@components/svg/header-img.svg";
 const items1: string[] = [
-    "Next.js",
-    "React",
-    "Typescript",
-    "TailwindCSS",
-    "SQL",
-    "Prisma",
-    "Python",
-    "Django",
-    "Framer Motion",
-    "Zod",
-    "React Hook Form",
-  ];
-  
-  const items2: string[] = [
-    "vuejs",
-    "laravel",
-    "Php",
-    "PL/SQL",
-    "Bootstrap",
-    "Css",
-  ];
+  "Next.js",
+  "React",
+  "React Native",
+  "Typescript",
+  "TailwindCSS",
+  "SQL",
+  "Prisma",
+  "Python",
+  "Django",
+  "Framer Motion",
+  "Zod",
+  "React Hook Form",
+  "Node.js",
+  "Express.js",
+  "MongoDB",
+  "Firebase",
+  "REST APIs",
+  "GraphQL",
+  "Jest",
+  "Cypress"
+];
+
+const items2: string[] = [
+  "Vue.js",
+  "Laravel",
+  "PHP",
+  "PL/SQL",
+  "Bootstrap",
+  "CSS",
+  "HTML5",
+  "SASS/SCSS",
+  "Redux",
+  "Context API",
+  "Expo",
+  "Flutter",
+  "Dart",
+  "Android Development",
+  "iOS Development",
+  "Git",
+  "Docker",
+  "AWS",
+  "CI/CD",
+  "Agile/Scrum"
+];
   
   function ItemBtn({ item }: { item: string }) {
     return (
