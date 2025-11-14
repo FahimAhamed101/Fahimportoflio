@@ -67,7 +67,7 @@ export default function Hero() {
             </div>
             <div className="flex items-center gap-2">
               <Calendar className="h-4 w-4" />
-              <span>2+ years of professional experience</span>
+              <span>1+ years of professional experience</span>
             </div>
           </div>
           
@@ -121,7 +121,7 @@ export default function Hero() {
               <div className="text-sm text-slate-500 mt-1">Projects</div>
             </div>
             <div>
-              <div className="text-2xl font-semibold text-slate-900">3+</div>
+              <div className="text-2xl font-semibold text-slate-900">1+</div>
               <div className="text-sm text-slate-500 mt-1">Years Exp</div>
             </div>
             <div>
