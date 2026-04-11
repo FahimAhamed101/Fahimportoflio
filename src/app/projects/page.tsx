@@ -1,109 +1,143 @@
-import React from "react";
-import { getServerSession } from 'next-auth'
-import { options } from "@/app/api/auth/[...nextauth]/options"
-import Link from 'next/link'
-import prisma from "@/app/prismadb"
-import DeleteProduct from '@/app/DeleteProduct';
-import { signIn, signOut, useSession } from 'next-auth/react'
-import ProjectCard from "./ProjectCard";
-import "./styles.css";
+import Link from 'next/link';
+import prisma from '@/app/prismadb';
+import ProjectCard from './ProjectCard';
+import './styles.css';
 
-type Props = {}
+const splitValues = (value: string) =>
+  value
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
 
-const ProjectPage = async (props: Props) => {
-  // Sort by latest (most recent) products first
-  // Try different possible field names for the timestamp
-  const allmyproduct = await prisma.product.findMany({
+const ProjectPage = async () => {
+  const projects = await prisma.product.findMany({
     orderBy: {
-      // Try these common field names for creation timestamp
-      id: 'desc', // This will work if IDs are auto-incrementing
-      // Or try:
-      // created_at: 'desc',
-      // date_created: 'desc',
-      // timestamp: 'desc',
-    }
-  })
-  
-  // If the above doesn't work, you can also sort in JavaScript
-  // const allmyproduct = await prisma.product.findMany();
-  // const sortedProducts = [...allmyproduct].sort((a, b) => 
-  //   new Date(b.createdAt || b.created_at || b.date_created || b.timestamp).getTime() - 
-  //   new Date(a.createdAt || a.created_at || a.date_created || a.timestamp).getTime()
-  // );
+      id: 'desc',
+    },
+  });
 
-  if (allmyproduct.length === 0) {
+  const categories = new Set(
+    projects.flatMap((project) => splitValues(project.category || ''))
+  );
+  const linkedProjects = projects.filter(
+    (project) => Boolean(project.link) || Boolean(project.github)
+  ).length;
+
+  if (projects.length === 0) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-slate-900 to-purple-900 p-4">
-        <div className="text-center max-w-md mx-auto">
-          <div className="relative w-64 h-64 mx-auto mb-6">
-            <img 
-              src="empty.png" 
-              alt="No projects" 
-              className="w-full h-full object-contain"
-            />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-24 h-24 bg-purple-500/20 rounded-full animate-pulse"></div>
-            </div>
+      <div className="relative isolate min-h-screen overflow-hidden bg-slate-950 px-4 py-24 sm:px-6 lg:px-8">
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute left-1/2 top-20 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-500/10 blur-3xl" />
+          <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-amber-500/10 blur-3xl" />
+        </div>
+
+        <div className="mx-auto flex max-w-4xl flex-col items-center rounded-[32px] border border-white/10 bg-white/[0.03] px-8 py-14 text-center shadow-[0_24px_90px_rgba(2,6,23,0.45)] backdrop-blur-xl">
+          <div className="relative mb-8 flex h-28 w-28 items-center justify-center rounded-full border border-cyan-300/20 bg-cyan-400/10">
+            <div className="absolute h-16 w-16 rounded-3xl border border-white/10 bg-white/10 rotate-12" />
+            <div className="absolute h-16 w-16 rounded-3xl border border-amber-300/20 bg-amber-400/10 -rotate-12" />
+            <div className="relative h-8 w-8 rounded-full bg-cyan-200 shadow-[0_0_30px_rgba(34,211,238,0.7)]" />
           </div>
-          <h1 className="text-3xl font-bold text-white mb-4">No Projects Yet</h1>
-          <p className="text-purple-200 mb-8">
-            It looks like you haven't added any projects yet. Get started by creating your first amazing project!
+
+          <p className="text-sm font-semibold uppercase tracking-[0.32em] text-cyan-200/80">
+            Portfolio Archive
           </p>
-          <Link 
-            href="/add-project"
-            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-medium rounded-lg hover:from-purple-700 hover:to-indigo-700 transition-all transform hover:-translate-y-1 shadow-lg hover:shadow-purple-500/30"
+          <h1 className="mt-4 max-w-2xl text-4xl font-semibold leading-tight text-white md:text-5xl">
+            The project gallery is ready for its first release.
+          </h1>
+          <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300 md:text-lg">
+            There are no projects published yet. Add your first build and this page
+            will turn into a polished case-study grid automatically.
+          </p>
+
+          <Link
+            href="/addproduct"
+            className="mt-10 inline-flex items-center gap-3 rounded-full border border-cyan-300/30 bg-cyan-400/15 px-7 py-3 text-sm font-semibold uppercase tracking-[0.22em] text-cyan-100 transition-all hover:-translate-y-0.5 hover:bg-cyan-400/25"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
-            </svg>
-            Create Your First Project
+            Launch First Project
           </Link>
         </div>
       </div>
-    )
+    );
   }
 
   return (
-    <div id="projects" className="min-h-screen bg-gradient-to-b from-slate-900 to-purple-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-6">
-            <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-              Awesome
-            </span>
-            <span className="text-white"> projects and websites</span>
-          </h1>
-          <p className="text-xl text-purple-200 max-w-3xl mx-auto">
-            Discover the best projects and websites built with React, Next.js, Tailwind CSS, and more.
-          </p>
-          
-          {/* Stats Bar */}
-          <div className="mt-10 flex flex-wrap justify-center gap-6">
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 min-w-[150px] border border-white/10">
-              <div className="text-3xl font-bold text-orange-400">{allmyproduct.length}</div>
-              <div className="text-purple-200">Total Projects</div>
+    <div
+      id="projects"
+      className="relative isolate overflow-hidden bg-slate-950 px-4 py-14 sm:px-6 lg:px-8"
+    >
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute left-1/2 top-0 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-3xl" />
+        <div className="absolute right-0 top-40 h-72 w-72 rounded-full bg-amber-500/10 blur-3xl" />
+        <div className="absolute bottom-0 left-0 h-80 w-80 rounded-full bg-fuchsia-500/10 blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(circle_at_center,black,transparent_78%)]" />
+      </div>
+
+      <div className="mx-auto max-w-7xl">
+        <section className="mb-14 overflow-hidden rounded-[36px] border border-white/10 bg-white/[0.04] shadow-[0_30px_110px_rgba(2,6,23,0.48)] backdrop-blur-xl">
+          <div className="grid gap-10 px-6 py-8 md:px-10 md:py-12 xl:grid-cols-[1.35fr_0.95fr] xl:items-end">
+            <div className="max-w-3xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.34em] text-cyan-200/80">
+                Selected Portfolio
+              </p>
+              <h1 className="mt-4 text-4xl font-semibold leading-tight text-white md:text-6xl">
+                Modern product builds with a sharper visual edge.
+              </h1>
+              <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 md:text-lg">
+                A curated collection of projects, interfaces, and production-ready
+                experiments. The newest work appears first, with direct access to
+                live demos, source code, and full case-study details.
+              </p>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                <span className="rounded-full border border-cyan-300/20 bg-cyan-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-100">
+                  Newest First
+                </span>
+                <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-200">
+                  Dark Editorial Layout
+                </span>
+                <span className="rounded-full border border-amber-300/20 bg-amber-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-amber-100">
+                  Case Study Focus
+                </span>
+              </div>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 min-w-[150px] border border-white/10">
-              <div className="text-3xl font-bold text-green-400">14+</div>
-              <div className="text-purple-200">Technologies</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 min-w-[150px] border border-white/10">
-              <div className="text-3xl font-bold text-blue-400">3+</div>
-              <div className="text-purple-200">Companies</div>
+
+            <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
+              <div className="rounded-[28px] border border-white/10 bg-slate-950/55 p-5">
+                <p className="text-xs uppercase tracking-[0.28em] text-slate-400">
+                  Total Projects
+                </p>
+                <p className="mt-3 text-4xl font-semibold text-white">
+                  {projects.length}
+                </p>
+              </div>
+              <div className="rounded-[28px] border border-white/10 bg-slate-950/55 p-5">
+                <p className="text-xs uppercase tracking-[0.28em] text-slate-400">
+                  Categories
+                </p>
+                <p className="mt-3 text-4xl font-semibold text-cyan-200">
+                  {categories.size}
+                </p>
+              </div>
+              <div className="rounded-[28px] border border-white/10 bg-slate-950/55 p-5">
+                <p className="text-xs uppercase tracking-[0.28em] text-slate-400">
+                  Live Or Code Links
+                </p>
+                <p className="mt-3 text-4xl font-semibold text-amber-200">
+                  {linkedProjects}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {allmyproduct.map((product, i) => (
-            <ProjectCard key={i} product={product} />
+        <section className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+          {projects.map((product) => (
+            <ProjectCard key={product.id} product={product} />
           ))}
-        </div>
+        </section>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProjectPage
+export default ProjectPage;

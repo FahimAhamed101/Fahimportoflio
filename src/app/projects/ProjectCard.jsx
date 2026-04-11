@@ -3,125 +3,156 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import {
+  ArrowUpRight,
+  Github,
+  Globe,
+  Heart,
+  PencilLine,
+  Sparkles,
+} from 'lucide-react';
 import DeleteProduct from '@/app/DeleteProduct';
 import { useSession } from 'next-auth/react';
 
+const splitValues = (value = '') =>
+  value
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
+
 function ProjectCard({ product }) {
   const { data: session } = useSession();
-  
-  const handleFavoriteClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    // Add your favorite functionality here
-    console.log('Favorite clicked for:', product.title);
+  const imageList = splitValues(product.images);
+  const categoryList = splitValues(product.category);
+  const previewImage = imageList[0] || '/fahimgreen.jpg';
+  const visibleTags = categoryList.length ? categoryList.slice(0, 3) : ['Portfolio'];
+
+  const handleFavoriteClick = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
   };
 
   return (
-    <div className="group relative h-100 w-full overflow-hidden rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 shadow-xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
-      {/* Main project link - makes entire card clickable */}
-      <Link 
+    <article className="group relative flex min-h-[480px] flex-col overflow-hidden rounded-[30px] border border-white/10 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.16),_transparent_38%),linear-gradient(180deg,_rgba(15,23,42,0.98),_rgba(2,6,23,0.98))] shadow-[0_24px_80px_rgba(2,6,23,0.45)] transition-all duration-500 hover:-translate-y-2 hover:border-cyan-400/40 hover:shadow-[0_30px_90px_rgba(34,211,238,0.16)]">
+      <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/80 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+      <Link
         href={`/projects/${product.id}`}
         className="absolute inset-0 z-10"
         aria-label={`View ${product.title} project`}
       />
-      
-      {/* Project Image */}
-      <div className="relative h-48 w-full overflow-hidden">
+
+      <div className="relative h-64 overflow-hidden">
         <Image
-          src={product.images.split(',')[0]}
+          src={previewImage}
           alt={product.title}
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-110"
           quality={90}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
         />
-        
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-        
-        {/* Tech Stack Badges */}
-        <div className="absolute left-4 top-4 z-20 flex flex-wrap gap-2">
-          {product.techStack?.split(',').slice(0, 3).map((tech, index) => (
-            <span 
-              key={index}
-              className="rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 px-3 py-1 text-xs font-medium text-white shadow-md"
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/35 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(251,191,36,0.28),_transparent_35%)]" />
+
+        <div className="absolute left-5 top-5 z-20 flex flex-wrap gap-2">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-slate-950/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200 backdrop-blur-md">
+            <Sparkles className="h-3.5 w-3.5" />
+            Selected Work
+          </span>
+          {visibleTags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-md"
             >
-              {tech.trim()}
+              {tag}
             </span>
           ))}
         </div>
-        
-        {/* Favorite/Like Button */}
-        <button 
-          className="absolute right-4 top-4 z-20 rounded-full bg-black/40 p-2 backdrop-blur-sm transition-all hover:bg-purple-600/80"
+
+        <button
+          type="button"
+          className="absolute right-5 top-5 z-20 rounded-full border border-white/10 bg-slate-950/70 p-2.5 text-white/80 backdrop-blur-md transition-all hover:scale-105 hover:border-cyan-300/40 hover:bg-cyan-500/20 hover:text-white"
           onClick={handleFavoriteClick}
+          aria-label={`Favorite ${product.title}`}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-          </svg>
+          <Heart className="h-4 w-4" />
         </button>
+
+        <div className="absolute inset-x-5 bottom-5 z-20 flex items-end justify-between gap-4">
+          <div>
+            <p className="text-xs uppercase tracking-[0.32em] text-cyan-200/80">
+              Project Spotlight
+            </p>
+            <h3 className="mt-2 text-2xl font-semibold text-white drop-shadow-lg line-clamp-1">
+              {product.title}
+            </h3>
+          </div>
+          <div className="rounded-full border border-white/10 bg-black/30 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur-md">
+            {imageList.length > 1 ? `${imageList.length} images` : 'Single showcase'}
+          </div>
+        </div>
       </div>
-      
-      {/* Project Info */}
-      <div className="p-5">
-        <h3 className="mb-2 text-xl font-bold text-white line-clamp-1">
-          {product.title}
-        </h3>
-        
-        <p className="mb-4 text-sm text-gray-300 line-clamp-2">
+
+      <div className="relative z-20 flex flex-1 flex-col p-6">
+        <p className="max-w-xl text-sm leading-7 text-slate-300 line-clamp-3">
           {product.description}
         </p>
-        
-        <div className="flex items-center justify-between">
-          <div className="group/view flex items-center text-sm font-semibold text-purple-300 hover:text-white transition-colors">
-            View Details
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              className="ml-2 h-4 w-4 transition-transform group-hover/view:translate-x-1"
-              viewBox="0 0 20 20" 
-              fill="currentColor"
+
+        <div className="mt-5 flex flex-wrap gap-3">
+          {product.link && (
+            <Link
+              href={product.link}
+              target="_blank"
+              rel="noreferrer"
+              className="relative z-20 inline-flex items-center gap-2 rounded-full border border-emerald-400/25 bg-emerald-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-200 transition-colors hover:bg-emerald-400/20"
+              onClick={(event) => event.stopPropagation()}
             >
-              <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
+              <Globe className="h-3.5 w-3.5" />
+              Live Site
+            </Link>
+          )}
+          {product.github && (
+            <Link
+              href={product.github}
+              target="_blank"
+              rel="noreferrer"
+              className="relative z-20 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-200 transition-colors hover:bg-white/10"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <Github className="h-3.5 w-3.5" />
+              Source
+            </Link>
+          )}
+        </div>
+
+        <div className="mt-auto flex items-center justify-between gap-4 border-t border-white/10 pt-6">
+          <div className="flex items-center gap-2 text-sm font-semibold text-cyan-200 transition-colors duration-300 group-hover:text-white">
+            View Case Study
+            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
           </div>
-          
-          {/* Admin Actions */}
+
           {session && (
-            <div className="flex items-center space-x-3 z-20 relative">
-              <Link 
+            <div className="relative z-20 flex items-center gap-2">
+              <Link
                 href={`/edit/${product.id}`}
-                className="rounded-full bg-slate-700/50 p-2 text-gray-300 hover:bg-purple-600 hover:text-white transition-colors"
-                title="Edit Project"
-                onClick={(e) => e.stopPropagation()}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-200 transition-colors hover:border-cyan-300/40 hover:bg-cyan-500/20 hover:text-white"
+                title="Edit project"
+                onClick={(event) => event.stopPropagation()}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                </svg>
+                <PencilLine className="h-4 w-4" />
               </Link>
-              
-              <DeleteProduct 
-                id={product.id} 
-                className="rounded-full bg-slate-700/50 p-2 text-gray-300 hover:bg-red-600 hover:text-white transition-colors"
-                onClick={(e) => e.stopPropagation()}
+
+              <DeleteProduct
+                productId={product.id}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-200 transition-colors hover:border-rose-300/40 hover:bg-rose-500/20 hover:text-white"
+                iconClassName="h-4 w-4"
+                onClick={(event) => event.stopPropagation()}
               />
             </div>
           )}
         </div>
       </div>
-      
-      {/* Hover effect border */}
-      <div className="absolute inset-0 rounded-2xl border-2 border-transparent transition-all duration-500 group-hover:border-purple-500/30" />
-      
-      {/* Clickable overlay indicator */}
-      <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-center justify-center pointer-events-none">
-        <div className="bg-black/20 rounded-full p-2 backdrop-blur-sm">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-          </svg>
-        </div>
-      </div>
-    </div>
+    </article>
   );
 }
 

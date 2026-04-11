@@ -1,36 +1,50 @@
-'use client'
-import React from 'react'
-import axios from 'axios'
-import { GoTrash } from 'react-icons/go'
-import { useRouter } from 'next/navigation'
+'use client';
+
+import React from 'react';
+import axios from 'axios';
+import { GoTrash } from 'react-icons/go';
+import { useRouter } from 'next/navigation';
 
 type Props = {
-    productId?:string
-  
-}
+  productId?: string;
+  className?: string;
+  iconClassName?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+};
 
-const DeleteProduct = ({productId}: Props) => {
-    const router = useRouter()
+const DeleteProduct = ({
+  productId,
+  className = 'cursor-pointer',
+  iconClassName = 'text-red-600',
+  onClick,
+}: Props) => {
+  const router = useRouter();
 
-    const handleDelete = async () => {
-        try{
-            await axios.delete('/api/addproduct',{
-                data:{
-                    productId:productId,
-                  
-                }
-            })
-            router.refresh()
-        }
-        catch(error){
-            console.log('Error in deleting product')
-        }
+  const handleDelete = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    onClick?.(event);
+
+    try {
+      await axios.delete('/api/addproduct', {
+        data: {
+          productId,
+        },
+      });
+      router.refresh();
+    } catch (error) {
+      console.log('Error deleting product');
     }
-  return (
-    <div onClick={handleDelete} className='cursor-pointer'>
-        <GoTrash className='text-red-600' size={20}/>
-    </div>
-  )
-}
+  };
 
-export default DeleteProduct
+  return (
+    <button
+      type="button"
+      onClick={handleDelete}
+      className={className}
+      aria-label="Delete project"
+    >
+      <GoTrash className={iconClassName} size={18} />
+    </button>
+  );
+};
+
+export default DeleteProduct;
