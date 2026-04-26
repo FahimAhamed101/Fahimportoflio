@@ -117,10 +117,7 @@ export default function Hero() {
               <div className="text-2xl font-semibold text-slate-900">50+</div>
               <div className="text-sm text-slate-500 mt-1">Projects</div>
             </div>
-            <div>
-              <div className="text-2xl font-semibold text-slate-900">1+</div>
-              <div className="text-sm text-slate-500 mt-1">Years Exp</div>
-            </div>
+          
             <div>
               <div className="text-2xl font-semibold text-slate-900">20+</div>
               <div className="text-sm text-slate-500 mt-1">Clients</div>
