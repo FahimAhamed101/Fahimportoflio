@@ -65,10 +65,7 @@ export default function Hero() {
               <MapPin className="h-4 w-4" />
               <span>Based in Bangladesh</span>
             </div>
-            <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4" />
-              <span>1+ years of professional experience</span>
-            </div>
+            
           </div>
           
           {/* Action buttons */}
